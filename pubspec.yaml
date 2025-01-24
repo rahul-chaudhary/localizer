@@ -40,6 +40,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
   google_fonts: ^6.2.1
+  data_table_2: ^2.5.18
 
 dev_dependencies:
   flutter_test:
