@@ -19,7 +19,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CRUDTab selectedTab = CRUDTab.create;
-  List<TableRowItem> tableRowItems = [];
+  List<TableRowItem> tableRowItems = [
+    TableRowItem(key: 'myKet', englishItem: 'YEAH', hindiItem: 'fsdf', marathiItem: 'dsfcd')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -107,13 +109,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   children: [
-                    for (int i = 0; i < 100; i++)
+                    buildTableRow(
+                        isHeader: true,
+                        no: 0,
+                        keyValue: 'Key', english: 'English',
+                        hindi: 'Hindi',
+                        marathi: 'Marathi'),
+                    for (int i = 0; i < tableRowItems.length; i++)
                       buildTableRow(
-                          no: i,
-                          keyValue: 'Key',
-                          english: 'English',
-                          hindi: 'Hindi',
-                          marathi: 'Marathi'),
+                          no: i+1,
+                          keyValue: tableRowItems[i].key,
+                          english: tableRowItems[i].englishItem,
+                          hindi: tableRowItems[i].hindiItem,
+                          marathi: tableRowItems[i].marathiItem),
                   ]),
             ),
           ),
