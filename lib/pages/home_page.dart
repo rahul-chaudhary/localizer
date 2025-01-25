@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:localizer/Models/TableRowItem.dart';
+import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/utils/constants/app_color.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
+import 'package:localizer/widgets/create_container.dart';
 import 'package:localizer/widgets/table_header.dart';
 import 'package:localizer/widgets/table_row_widget.dart';
 import '../widgets/crud_header.dart';
@@ -15,6 +18,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CRUDTab selectedTab = CRUDTab.create;
+  List<TableRowItem> tableRowItems = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +52,27 @@ class _HomePageState extends State<HomePage> {
       color: AppColor.scaffoldColorLight,
       child: Column(
         children: [
-          CRUDHeader(),
+          const CRUDHeader(),
+          const SizedBox(height: 12),
+          getSelectedTab(selectedTab),
+
         ],
       ),
     );
+  }
+  Widget getSelectedTab(CRUDTab selectedTab) {
+    switch (selectedTab) {
+      case CRUDTab.create:
+        return const CreateContainer();
+      case CRUDTab.read:
+        return Container();
+      case CRUDTab.update:
+        return Container();
+      case CRUDTab.delete:
+        return Container();
+      default:
+        return const Text('No Tab Selected');
+    }
   }
 
   Widget _viewContainer(BuildContext context) {
@@ -98,5 +121,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
+
+}
