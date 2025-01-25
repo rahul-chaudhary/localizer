@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../utils/constants/app_color.dart';
 
 class TableHeader extends StatelessWidget {
@@ -14,17 +14,22 @@ class TableHeader extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Icon(
+            const Icon(
               Icons.map,
               color: AppColor.textColorLight,
             ),
-            Text(
+            const Text(
               'Map View',
               style: TextStyle(color: AppColor.textColorLight),
             ),
+            const Spacer(),
+            IconButton(
+                onPressed: (){},
+                tooltip: 'Export JSON File',
+                icon: Icon(MdiIcons.export, color: AppColor.textColorLight)),
           ],
         ),
 
