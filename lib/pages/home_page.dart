@@ -4,7 +4,8 @@ import 'package:localizer/utils/constants/app_color.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/widgets/table_header.dart';
 import 'package:localizer/widgets/table_row_widget.dart';
-import 'package:data_table_2/data_table_2.dart';
+import '../widgets/crud_header.dart';
+// import 'package:data_table_2/data_table_2.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,7 +43,12 @@ class _HomePageState extends State<HomePage> {
   Widget _cRUDContainer(BuildContext context) {
     return Container(
       height: getScreenHeight(context) * .9,
-      color: AppColor.primaryColor,
+      color: AppColor.scaffoldColorLight,
+      child: Column(
+        children: [
+          CRUDHeader(),
+        ],
+      ),
     );
   }
 
@@ -70,18 +76,22 @@ class _HomePageState extends State<HomePage> {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Table(
-                border: TableBorder.all(
-                  color: AppColor.lightGrey,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
+                  border: TableBorder.all(
+                    color: AppColor.lightGrey,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
                   ),
-                ),
-                children: [
-                  for(int i = 0; i < 100; i++)
-                  buildTableRow(no: 1, keyValue: 'Key', english: 'English', hindi: 'Hindi', marathi: 'Marathi'),
-                ]
-              ),
+                  children: [
+                    for (int i = 0; i < 100; i++)
+                      buildTableRow(
+                          no: i,
+                          keyValue: 'Key',
+                          english: 'English',
+                          hindi: 'Hindi',
+                          marathi: 'Marathi'),
+                  ]),
             ),
           ),
         ],
@@ -89,3 +99,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
