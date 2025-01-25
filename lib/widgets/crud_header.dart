@@ -28,20 +28,24 @@ class CRUDHeader extends StatelessWidget {
         children: [
           IconButton(
               onPressed: () {},
+              tooltip: 'Add a New Record',
               icon: const Icon(
                 Icons.add_rounded,
                 color: AppColor.scaffoldColorLight,
               )),
           IconButton(
               onPressed: () {},
+              tooltip: 'Search a Record',
               icon: const Icon(Icons.search_rounded,
                   color: AppColor.scaffoldColorLight)),
           IconButton(
               onPressed: () {},
+              tooltip: 'Update a Record',
               icon: const Icon(Icons.update_rounded,
                   color: AppColor.scaffoldColorLight)),
           IconButton(
               onPressed: () {},
+              tooltip: 'Delete a Record',
               icon: const Icon(Icons.delete_rounded,
                   color: AppColor.scaffoldColorLight)),
         ],
