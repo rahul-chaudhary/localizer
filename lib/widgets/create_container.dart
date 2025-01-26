@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:localizer/Models/crud_tab.dart';
+import 'package:localizer/providers/home_page_provider.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/widgets/app_button.dart';
 import 'package:localizer/widgets/app_text_field.dart';
-
+import '../Models/TableRowItem.dart';
 import '../utils/constants/app_color.dart';
 
 class CreateContainer extends StatefulWidget {
-  const CreateContainer({super.key});
+  final HomePageProvider homepageProvider;
+
+  const CreateContainer({super.key, required this.homepageProvider});
 
   @override
   State<CreateContainer> createState() => _CreateContainerState();
@@ -15,17 +18,26 @@ class CreateContainer extends StatefulWidget {
 
 class _CreateContainerState extends State<CreateContainer> {
   late final TextEditingController keyController;
-  late final TextEditingController englishPhaseController;
-  late final TextEditingController hindiPhaseController;
-  late final TextEditingController marathiPhaseController;
+  late final TextEditingController englishPhraseController;
+  late final TextEditingController hindiPhraseController;
+  late final TextEditingController marathiPhraseController;
 
   @override
   void initState() {
     super.initState();
     keyController = TextEditingController();
-    englishPhaseController = TextEditingController();
-    hindiPhaseController = TextEditingController();
-    marathiPhaseController = TextEditingController();
+    englishPhraseController = TextEditingController();
+    hindiPhraseController = TextEditingController();
+    marathiPhraseController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    keyController.dispose();
+    englishPhraseController.dispose();
+    hindiPhraseController.dispose();
+    marathiPhraseController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,7 +68,7 @@ class _CreateContainerState extends State<CreateContainer> {
                 flex: 3,
                 child: myTextField(
                     hintText: 'Enter English Phrase/Word',
-                    controller: englishPhaseController),
+                    controller: englishPhraseController),
               ),
               Flexible(
                   child: Center(
@@ -73,18 +85,40 @@ class _CreateContainerState extends State<CreateContainer> {
           _gap,
           myTextField(
               hintText: 'Enter Hindi Phrases/Words',
-              controller: hindiPhaseController),
+              controller: hindiPhraseController),
           _gap,
           myTextField(
               hintText: 'Enter Marathi Phrases/Words',
-              controller: marathiPhaseController),
+              controller: marathiPhraseController),
           _gap,
           _gap,
-          Center(child: AppButton(text: 'Save', onPressed: () {})),
+          Center(
+            child: AppButton(
+              text: 'Save',
+              onPressed: () {
+                widget.homepageProvider.addTableRowItem(
+                  TableRowItem(
+                    key: keyController.text,
+                    englishItem: englishPhraseController.text,
+                    hindiItem: hindiPhraseController.text,
+                    marathiItem: marathiPhraseController.text,
+                  ),
+                );
+                _clearFields();
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 
   SizedBox get _gap => const SizedBox(height: 24);
+
+  void _clearFields() {
+    keyController.clear();
+    englishPhraseController.clear();
+    hindiPhraseController.clear();
+    marathiPhraseController.clear();
+  }
 }

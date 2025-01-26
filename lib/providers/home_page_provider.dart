@@ -1,22 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/shared_pref/shared_pref_keys.dart';
-import '../utils/shared_pref/shared_prefs.dart';
+import 'package:flutter/material.dart';
 
-class HomeNotifier extends Notifier {
-  Map<String, dynamic>? _map;
+import '../Models/TableRowItem.dart';
 
-  @override
-  Map<String, dynamic>? build() {
-    return null;
-  }
+class HomePageProvider extends ChangeNotifier {
+  final List<TableRowItem> _tableRowItems = [
+    TableRowItem(key: 'myKet', englishItem: 'YEAH', hindiItem: 'fsdf', marathiItem: 'dsfcd')
+  ];
 
-  Future<Map<String, dynamic>?> getMap() async {
-    _map = await getMapFromLocalStorage(prefsKey: SharedPrefKeys.englishMap);
-    return _map;
-  }
+  List<TableRowItem> get tableRowItems => _tableRowItems;
 
-  void addToMap({required String key, required String value}) async {
-    _map?.addAll({key: value});
-    saveMapToLocalStorage(prefsKey: key, map: {key: value});
+  void addTableRowItem(TableRowItem tableRowItem) {
+    _tableRowItems.add(tableRowItem);
+    notifyListeners();
   }
 }

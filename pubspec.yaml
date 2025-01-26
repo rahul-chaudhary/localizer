@@ -37,8 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.3.5
   dio: ^5.7.0
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  provider: ^6.1.2
+#  flutter_riverpod: ^2.6.1
+#  riverpod_annotation: ^2.6.1
   google_fonts: ^6.2.1
   data_table_2: ^2.5.18
   material_design_icons_flutter: ^7.0.7296
@@ -47,7 +48,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  riverpod_generator: ^2.6.3
+#  riverpod_generator: ^2.6.3
   build_runner: ^2.4.13
 
 

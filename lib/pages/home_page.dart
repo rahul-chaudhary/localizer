@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:localizer/Models/TableRowItem.dart';
 import 'package:localizer/Models/crud_tab.dart';
+import 'package:localizer/providers/home_page_provider.dart';
 import 'package:localizer/utils/constants/app_color.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/widgets/create_container.dart';
 import 'package:localizer/widgets/table_header.dart';
 import 'package:localizer/widgets/table_row_widget.dart';
+import 'package:provider/provider.dart';
 import '../widgets/crud_header.dart';
 // import 'package:data_table_2/data_table_2.dart';
 
@@ -19,19 +20,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CRUDTab selectedTab = CRUDTab.create;
-  List<TableRowItem> tableRowItems = [
-    TableRowItem(key: 'myKet', englishItem: 'YEAH', hindiItem: 'fsdf', marathiItem: 'dsfcd')
-  ];
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.scaffoldColorLight,
-      body: _buildUI(context),
+    return Consumer<HomePageProvider>(
+      builder: (context, homePageProvider, child) {
+        return Scaffold(
+          backgroundColor: AppColor.scaffoldColorLight,
+          body: _buildUI(context, homePageProvider),
+        );
+      },
     );
   }
 
-  Widget _buildUI(BuildContext context) {
+  Widget _buildUI(BuildContext context, HomePageProvider homePageProvider) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
   Widget getSelectedTab(CRUDTab selectedTab) {
     switch (selectedTab) {
       case CRUDTab.create:
-        return const CreateContainer();
+        return CreateContainer(homepageProvider: context.watch<HomePageProvider>());
       case CRUDTab.read:
         return Container();
       case CRUDTab.update:
@@ -78,6 +81,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _viewContainer(BuildContext context) {
+    final tableRowItems = context.read<HomePageProvider>().tableRowItems;
     return Container(
       height: getScreenHeight(context) * .9,
       decoration: BoxDecoration(
