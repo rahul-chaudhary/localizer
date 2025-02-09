@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:localizer/Models/TableRowItem.dart';
 import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/providers/home_page_provider.dart';
 import 'package:localizer/utils/constants/app_color.dart';
@@ -9,7 +8,7 @@ import 'package:localizer/widgets/table_header.dart';
 import 'package:localizer/widgets/table_row_widget.dart';
 import 'package:provider/provider.dart';
 import '../widgets/crud_header.dart';
-// import 'package:data_table_2/data_table_2.dart';
+import '../widgets/delete_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,9 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CRUDTab selectedTab = CRUDTab.create;
-
-
   @override
   Widget build(BuildContext context) {
     return Consumer<HomePageProvider>(
@@ -41,17 +37,17 @@ class _HomePageState extends State<HomePage> {
         children: [
           Row(
             children: [
-              Expanded(flex: 1, child: _cRUDContainer(context)),
+              Expanded(flex: 1, child: _cRUDContainer(context, homePageProvider)),
               const SizedBox(width: 24),
-              Expanded(flex: 1, child: _viewContainer(context)),
+              Expanded(flex: 1, child: _viewContainer(homePageProvider)),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _cRUDContainer(BuildContext context) {
+  Widget _cRUDContainer(BuildContext context, HomePageProvider homePageProvider) {
     return Container(
       height: getScreenHeight(context) * .9,
       color: AppColor.scaffoldColorLight,
@@ -59,29 +55,30 @@ class _HomePageState extends State<HomePage> {
         children: [
           const CRUDHeader(),
           const SizedBox(height: 12),
-          getSelectedTab(selectedTab),
-
+          getSelectedTab(homePageProvider),
         ],
       ),
     );
   }
-  Widget getSelectedTab(CRUDTab selectedTab) {
-    switch (selectedTab) {
+
+  Widget getSelectedTab(HomePageProvider homePageProvider) {
+    switch (homePageProvider.selectedTab) {
       case CRUDTab.create:
-        return CreateContainer(homepageProvider: context.watch<HomePageProvider>());
+        return CreateContainer(homepageProvider: homePageProvider);
       case CRUDTab.read:
-        return Container();
+        return Container(); // Implement read functionality
       case CRUDTab.update:
-        return Container();
+        return Container(); // Implement update functionality
       case CRUDTab.delete:
-        return Container();
+        return DeleteContainer(homePageProvider: homePageProvider);
       default:
         return const Text('No Tab Selected');
     }
   }
 
-  Widget _viewContainer(BuildContext context) {
-    final tableRowItems = context.read<HomePageProvider>().tableRowItems;
+  Widget _viewContainer(HomePageProvider homePageProvider) {
+    final tableRowItems = homePageProvider.tableRowItems;
+
     return Container(
       height: getScreenHeight(context) * .9,
       decoration: BoxDecoration(
@@ -105,34 +102,36 @@ class _HomePageState extends State<HomePage> {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Table(
-                  border: TableBorder.all(
-                    color: AppColor.lightGrey,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
+                border: TableBorder.all(
+                  color: AppColor.lightGrey,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
-                  children: [
+                ),
+                children: [
+                  buildTableRow(
+                    isHeader: true,
+                    no: 0,
+                    keyValue: 'Key',
+                    english: 'English',
+                    hindi: 'Hindi',
+                    marathi: 'Marathi',
+                  ),
+                  for (int i = 0; i < tableRowItems.length; i++)
                     buildTableRow(
-                        isHeader: true,
-                        no: 0,
-                        keyValue: 'Key', english: 'English',
-                        hindi: 'Hindi',
-                        marathi: 'Marathi'),
-                    for (int i = 0; i < tableRowItems.length; i++)
-                      buildTableRow(
-                          no: i+1,
-                          keyValue: tableRowItems[i].key,
-                          english: tableRowItems[i].englishItem,
-                          hindi: tableRowItems[i].hindiItem,
-                          marathi: tableRowItems[i].marathiItem),
-                  ]),
+                      no: i + 1,
+                      keyValue: tableRowItems[i].key,
+                      english: tableRowItems[i].englishItem,
+                      hindi: tableRowItems[i].hindiItem,
+                      marathi: tableRowItems[i].marathiItem,
+                    ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-
 }
