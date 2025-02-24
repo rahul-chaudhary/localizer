@@ -1,16 +1,10 @@
 # localizer
 
-A new Flutter project.
+A Flutter project for Windows
 
-## Getting Started
+## Video show casing how to add key and word in the table.
+https://github.com/user-attachments/assets/045edaa4-1c15-4db3-aa65-98eae08d65dd
 
-This project is a starting point for a Flutter application.
+## Video show casing how to export json file each for English, Hindi, and Marathi 
+https://github.com/user-attachments/assets/4f1fe77b-45ab-4632-ba11-171481bd31de
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
