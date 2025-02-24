@@ -3,7 +3,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../utils/constants/app_color.dart';
 
 class TableHeader extends StatelessWidget {
-  const TableHeader({super.key});
+  final VoidCallback onExportPressed;
+  const TableHeader({super.key, required this.onExportPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class TableHeader extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-                onPressed: (){},
+                onPressed: onExportPressed,
                 tooltip: 'Export JSON File',
                 icon: Icon(MdiIcons.export, color: AppColor.textColorLight)),
           ],
