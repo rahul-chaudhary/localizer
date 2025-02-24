@@ -3,11 +3,11 @@ import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/providers/home_page_provider.dart';
 import 'package:localizer/utils/constants/app_color.dart';
 import 'package:localizer/utils/helpers/export_json_files.dart';
-import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/widgets/create_container.dart';
 import 'package:localizer/widgets/table_header.dart';
 import 'package:localizer/widgets/table_row_widget.dart';
 import 'package:provider/provider.dart';
+import '../utils/constants/app_styles.dart';
 import '../widgets/crud_header.dart';
 import '../widgets/delete_container.dart';
 
@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _cRUDContainer(BuildContext context, HomePageProvider homePageProvider) {
     return Container(
-      height: getScreenHeight(context) * .9,
       color: AppColor.scaffoldColorLight,
       child: Column(
         children: [
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
     final tableRowItems = homePageProvider.tableRowItems;
 
     return Container(
-      height: getScreenHeight(context) * .9,
+      height: viewContainerHeight(context),
       decoration: BoxDecoration(
         color: AppColor.scaffoldColorLight,
         borderRadius: BorderRadius.circular(10),
