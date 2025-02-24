@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/providers/home_page_provider.dart';
+import 'package:localizer/services/api_service.dart';
 import 'package:localizer/utils/constants/text_styles.dart';
-import 'package:localizer/utils/helpers/debug_print.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/utils/helpers/validators.dart';
 import 'package:localizer/widgets/app_button.dart';
@@ -25,6 +25,7 @@ class _CreateContainerState extends State<CreateContainer> {
   final TextEditingController hindiPhraseController = TextEditingController();
   final TextEditingController marathiPhraseController = TextEditingController();
   String _warningText = '';
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -43,7 +44,9 @@ class _CreateContainerState extends State<CreateContainer> {
       height: getScreenHeight(context) * .6,
       width: getScreenWidth(context) * .5,
       child: SingleChildScrollView(
-        child: Column(
+        child: isLoading ?
+        const Center(child: CircularProgressIndicator())
+        : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -69,7 +72,7 @@ class _CreateContainerState extends State<CreateContainer> {
                     padding: const EdgeInsets.all(8.0),
                     child: AppButton(
                       text: 'Auto Translate',
-                      onPressed: () {},
+                      onPressed: onPressAutoTranslate,
                     ),
                   ),
                 )),
@@ -84,7 +87,7 @@ class _CreateContainerState extends State<CreateContainer> {
                 hintText: 'Enter Marathi Phrases/Words',
                 controller: marathiPhraseController),
             _gap,
-            Text(_warningText, style: const TextStyle(color: Colors.red)),
+            Text(_warningText, style: AppTextStyles.errorTextStyle),
             _gap,
             Center(
               child: AppButton(
@@ -99,7 +102,6 @@ class _CreateContainerState extends State<CreateContainer> {
                       marathiItem: marathiPhraseController.text,
                     ),
                   );
-                  dbPrint(isAlphanumericAndStartsWithLowercase(keyController.text));
                   // _clearFields();
                 },
               ),
@@ -142,5 +144,30 @@ class _CreateContainerState extends State<CreateContainer> {
     englishPhraseController.clear();
     hindiPhraseController.clear();
     marathiPhraseController.clear();
+  }
+
+   void onPressAutoTranslate() async {
+    if(englishPhraseController.text.isEmpty) {
+      setState(() {
+        _warningText = '*Enter English Phrase/Word';
+      });
+      return;
+    } else {
+      setState(() {
+        _warningText = '';
+      });
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    marathiPhraseController.text = await fetchTranslateText(targetLang: 'mr', text: englishPhraseController.text) ?? '';
+
+    hindiPhraseController.text = await fetchTranslateText(targetLang: 'hi', text: englishPhraseController.text) ?? '';
+
+    setState(() {
+      isLoading = false;
+    });
   }
 }
