@@ -41,8 +41,8 @@ class _CreateContainerState extends State<CreateContainer> {
     return Container(
       padding: containerPadding,
       decoration: crudBoxDecoration,
-      height: getScreenHeight(context) * .6,
-      width: getScreenWidth(context) * .5,
+      height: crudContainerHeight(context),
+      width: crudContainerWidth(context),
       child: SingleChildScrollView(
         child: isLoading ?
         const Center(child: CircularProgressIndicator())
@@ -64,6 +64,7 @@ class _CreateContainerState extends State<CreateContainer> {
                   flex: 3,
                   child: myTextField(
                       hintText: 'Enter English Phrase/Word',
+                      autocorrect: true,
                       controller: englishPhraseController),
                 ),
                 Flexible(

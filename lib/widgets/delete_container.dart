@@ -27,8 +27,8 @@ class _DeleteContainerState extends State<DeleteContainer> {
     return Container(
         padding: containerPadding,
         decoration: crudBoxDecoration,
-        height: getScreenHeight(context) * .6,
-        width: double.infinity,
+        height: crudContainerHeight(context),
+        width: crudContainerWidth(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

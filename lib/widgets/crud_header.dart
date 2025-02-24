@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/providers/home_page_provider.dart';
+import 'package:localizer/utils/constants/app_styles.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:provider/provider.dart';
 import '../utils/constants/app_color.dart';
@@ -12,7 +13,7 @@ class CRUDHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final homePageProvider = Provider.of<HomePageProvider>(context, listen: false);
     return Container(
-      height: getScreenHeight(context) * .05,
+      height: crudHeaderHeight,
       width: getScreenWidth(context) * .5,
       decoration: BoxDecoration(
         color: AppColor.primaryColor,
