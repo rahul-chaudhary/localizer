@@ -7,4 +7,5 @@ class AppColor {
   static const Color primaryColor = Color(0xffc96442);
   static const Color textColorLight = Color(0xffffffff);
   static const Color lightGrey = Color(0xffbebda6);
+  static const Color onPrimaryIcon = Color(0xffc96442);
 }
