@@ -38,7 +38,7 @@ Padding _tableRowText(String text, bool isHeader) {
   Color textColor = isHeader ? AppColor.scaffoldColorLight : Colors.black;
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text(
+    child: SelectableText(
       text,
       style: TextStyle(color: textColor),
     ),

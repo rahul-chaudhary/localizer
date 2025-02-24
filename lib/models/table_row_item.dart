@@ -28,4 +28,18 @@ class TableRowItem {
       'marathiItem': marathiItem,
     };
   }
+
+  TableRowItem copyWith({
+    String? key,
+    String? englishItem,
+    String? hindiItem,
+    String? marathiItem,
+  }) {
+    return TableRowItem(
+      key: key ?? this.key,
+      englishItem: englishItem ?? this.englishItem,
+      hindiItem: hindiItem ?? this.hindiItem,
+      marathiItem: marathiItem ?? this.marathiItem,
+    );
+  }
 }
