@@ -36,13 +36,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.3.5
-  dio: ^5.7.0
+  dio: ^5.8.0+1
   provider: ^6.1.2
 #  flutter_riverpod: ^2.6.1
 #  riverpod_annotation: ^2.6.1
   google_fonts: ^6.2.1
   data_table_2: ^2.5.18
   material_design_icons_flutter: ^7.0.7296
+  fpdart: ^1.1.1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +52,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 #  riverpod_generator: ^2.6.3
   build_runner: ^2.4.13
+  msix: ^3.16.8
 
 
 flutter:
