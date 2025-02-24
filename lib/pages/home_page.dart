@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localizer/Models/crud_tab.dart';
 import 'package:localizer/providers/home_page_provider.dart';
 import 'package:localizer/utils/constants/app_color.dart';
+import 'package:localizer/utils/helpers/export_json_files.dart';
 import 'package:localizer/utils/helpers/get_screen_width_height.dart';
 import 'package:localizer/widgets/create_container.dart';
 import 'package:localizer/widgets/table_header.dart';
@@ -96,7 +97,9 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          const TableHeader(),
+          TableHeader(
+            onExportPressed: () => exportJSONFiles(context),
+          ),
           Flexible(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -112,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   buildTableRow(
                     isHeader: true,
-                    no: 0,
+                    no: -1,
                     keyValue: 'Key',
                     english: 'English',
                     hindi: 'Hindi',
@@ -120,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   for (int i = 0; i < tableRowItems.length; i++)
                     buildTableRow(
-                      no: i + 1,
+                      no: i,
                       keyValue: tableRowItems[i].key,
                       english: tableRowItems[i].englishItem,
                       hindi: tableRowItems[i].hindiItem,
