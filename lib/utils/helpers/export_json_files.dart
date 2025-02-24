@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localizer/utils/helpers/get_custom_path.dart';
 import 'package:provider/provider.dart';
 import '../../Models/table_row_item.dart';
 import '../../providers/home_page_provider.dart';
+import '../constants/app_color.dart';
 
 Future<void> exportJSONFiles(BuildContext context) async {
   // Get the list of table row items from the provider.
@@ -43,9 +45,18 @@ Future<void> exportJSONFiles(BuildContext context) async {
 
     // Optionally, show a success message or log the file paths.
     debugPrint('Files saved at: $customPath');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Files saved at: $customPath')),
+    if(context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Row(
+        children: [
+          SelectableText('Files saved at: $customPath'),
+          IconButton(onPressed: () {
+            Clipboard.setData(ClipboardData(text: customPath));
+          }, icon: const Icon(Icons.copy_rounded, color: AppColor.onPrimaryIcon)),
+        ],
+      )),
     );
+    }
 
 
   } catch (e) {
