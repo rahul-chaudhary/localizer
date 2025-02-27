@@ -1,22 +1,50 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/shared_pref/shared_pref_keys.dart';
-import '../utils/shared_pref/shared_prefs.dart';
+import 'package:flutter/material.dart';
+import '../Models/table_row_item.dart';
+import '../Models/crud_tab.dart';
+import '../utils/helpers/save_and_load_item.dart';
 
-class HomeNotifier extends Notifier {
-  Map<String, dynamic>? _map;
+class HomePageProvider extends ChangeNotifier {
 
-  @override
-  Map<String, dynamic>? build() {
-    return null;
+  HomePageProvider() {
+    loadTableRowItemsFromLocal();
+  }
+  Future<void> loadTableRowItemsFromLocal() async {
+    final items = await loadTableRowItems(); // your load function from shared_preferences
+    _tableRowItems.clear();
+    _tableRowItems.addAll(items);
+    notifyListeners();
   }
 
-  Future<Map<String, dynamic>?> getMap() async {
-    _map = await getMapFromLocalStorage(prefsKey: SharedPrefKeys.englishMap);
-    return _map;
+  CRUDTab _selectedTab = CRUDTab.create;
+  final List<TableRowItem> _tableRowItems = [];
+
+  CRUDTab get selectedTab => _selectedTab;
+
+  void setSelectedTab(CRUDTab tab) {
+    _selectedTab = tab;
+    notifyListeners();
   }
 
-  void addToMap({required String key, required String value}) async {
-    _map?.addAll({key: value});
-    saveMapToLocalStorage(prefsKey: key, map: {key: value});
+  List<TableRowItem> get tableRowItems => _tableRowItems;
+
+  void addTableRowItem(TableRowItem tableRowItem) async {
+    _tableRowItems.add(tableRowItem);
+    notifyListeners();
+    //TODO: Add try catch block
+    await saveTableRowItems(_tableRowItems);
   }
+
+  bool isKeyAlreadyPresent(String key) {
+    return _tableRowItems.any((element) => element.key == key);
+  }
+
+  bool isIndexExist(int index) {
+    return index >= 0 && index < _tableRowItems.length;
+  }
+  void removeAnItem(int index) async {
+    _tableRowItems.removeAt(index);
+    notifyListeners();
+    await saveTableRowItems(_tableRowItems);
+  }
+
 }
