@@ -8,8 +8,9 @@ Simplify localization and expand your reach with ease!
 - Cloud Save
 - Multiple configuration for different project
 - More language support
-- Shortcut keys
+- Shortcut keys 
 - Support for Linux
+- Dark Mode 🌚
 
 ## Video show casing how to add key and word in the table.
 https://github.com/user-attachments/assets/045edaa4-1c15-4db3-aa65-98eae08d65dd
